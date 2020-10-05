@@ -14,7 +14,7 @@ public class Iterator<E extends Storage> {
 
     public boolean hasNext() {
         try {
-            return cursor < data.length;
+            return cursor < data.length && data[cursor] != null;
         } catch (NullPointerException|ArrayIndexOutOfBoundsException e) {
             return false;
         }
@@ -29,5 +29,16 @@ public class Iterator<E extends Storage> {
 
     public void reset() {
         cursor = START_IDX;
+    }
+
+    public int getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(int cursor) {
+        if (cursor < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        this.cursor = cursor;
     }
 }

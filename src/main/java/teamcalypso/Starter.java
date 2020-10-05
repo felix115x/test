@@ -29,19 +29,28 @@ public class Starter {
         FilterCallback<Storage> filter = element -> {
             char[] charArray = element.getType().toCharArray();
             for (char c : charArray) {
-                if (!Character.isUpperCase(c))
-                    return false;
+                if (Character.isUpperCase(c)) {
+                    return true;
+                }
             }
 
-            return true;
+            return false;
         };
 
+        Storage[] filteredArray = new Storage[data.length];
+        int count = 0;
         while (iterator.hasNext()) {
-            if (!filter.isValid(iterator.next())) {
-                    
+            Storage swap = iterator.next();
+            if (!filter.isValid(swap)) {
+                filteredArray[count++] = swap;
             }
         }
+
+        Iterator<Storage> filteredIterator = new Iterator<>(filteredArray);
+        System.out.println("Filtered data: ");
+        while (filteredIterator.hasNext()) {
+            final Storage storage = filteredIterator.next();
+            System.out.println("| id " + storage.getId() + " | type " + storage.getType() + " | " + storage.getSize());
+        }
     }
-
-
 }
